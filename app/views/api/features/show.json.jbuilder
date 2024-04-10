@@ -17,7 +17,7 @@ json.links do
   json.external_url @earthquake.external_url
 end
 json.comments do
-  json.array!(@earthquake.comments) do |comment|
+  json.array!(@earthquake.comments.where(is_active: true)) do |comment|
     json.body comment.body
   end
 end
