@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :index]
     end
     resources :comments, only: [:destroy]
+    post "users/login", to: "users#login"
+    post "users/register", to: "users#register"
   end
 end
-
