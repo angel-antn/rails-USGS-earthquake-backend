@@ -12,11 +12,6 @@ class Api::CommentsController < AuthController
   end
 
   def create
-    
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
-    decoded = JsonWebToken.jwt_decode(header)
-    @current_user = User.find(decoded[:user_id])
 
     @body = params[:body]
     puts @body
