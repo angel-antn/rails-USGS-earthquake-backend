@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:destroy]
     post "users/login", to: "users#login"
     post "users/register", to: "users#register"
+    get "users/me", to: "users#me"
   end
 end

@@ -23,6 +23,6 @@ end
 
 json.pagination do
   json.current_page @page
-  json.total Earthquake.count
+  json.total @earthquakes.count
   json.per_page @per_page
 end

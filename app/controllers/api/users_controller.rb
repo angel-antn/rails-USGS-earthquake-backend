@@ -1,4 +1,6 @@
-class Api::UsersController < ApplicationController
+class Api::UsersController < AuthController
+  skip_before_action :authenticate_request, only: [:login, :register]
+
   def login
     @user = User.find_by(email: params[:email])
     if @user&.authenticate(params[:password])
@@ -18,5 +20,9 @@ class Api::UsersController < ApplicationController
     end
 
     render json: {error: 'Email must be an unique valid email and password must be 6 characters min. All fields are required'}, status: :bad_request
+  end
+
+  def me
+    render json: {user: @current_user.as_json(except: :password_digest)}, status: :ok
   end
 end

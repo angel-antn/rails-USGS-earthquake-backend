@@ -4,11 +4,11 @@ class Api::CommentsController < AuthController
 
   def index
     if params[:user_id]
-      comments = @earthquake.comments.where(is_active: true, user_id: params[:user_id])
+      @comments = @earthquake.comments.where(is_active: true, user_id: params[:user_id])
     else
-      comments = @earthquake.comments.where(is_active: true)
+      @comments = @earthquake.comments.where(is_active: true)
     end
-    render json: comments, status: :ok
+    render :index, status: :ok
   end
 
   def create
@@ -19,8 +19,8 @@ class Api::CommentsController < AuthController
       render json: {error: 'post should only have body for the text of the comment and shouldn\'t be empty'}, status: :bad_request
       return
     end
-    comment = @earthquake.comments.new(body: @body, is_active: true, user_id: @current_user.id)
-    if comment.save
+    @comment = @earthquake.comments.new(body: @body, is_active: true, user_id: @current_user.id)
+    if @comment.save
       render :create, status: :ok
     else
       render json: {error: 'Error trying to create the comment'}, status: :internal_server_error
